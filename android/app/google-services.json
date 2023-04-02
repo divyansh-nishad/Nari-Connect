@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "697089200168",
+    "project_id": "nari-connect-918d2",
+    "storage_bucket": "nari-connect-918d2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:697089200168:android:9067997d4b9e7c7f6a251d",
+        "android_client_info": {
+          "package_name": "com.example.nari_connect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "697089200168-9vln4th5i1k6piev5bcsm0dhqt2mt7do.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGU85IbW3-4pWJAKk7IXoBbprdKxE0LCI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "697089200168-9vln4th5i1k6piev5bcsm0dhqt2mt7do.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "697089200168-idd34gmc2gnt22b720442ben25k5f6h9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nariConnect"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
