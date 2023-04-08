@@ -1,3 +1,5 @@
+import 'package:nari_connect/Screens/home_page.dart';
+import 'package:nari_connect/main.dart';
 import 'package:nari_connect/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:nari_connect/components/my_button.dart';
 import 'package:nari_connect/components/my_textfield.dart';
 import 'package:nari_connect/components/square_tile.dart';
+import 'package:nari_connect/services/database_service.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
@@ -16,11 +19,20 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   // text editing controllers
+  final fullNameController = TextEditingController();
+
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
 
   final confirmPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    // ignore: avoid_print
+    print('Dispose used');
+    super.dispose();
+  }
 
   // sign user up method
   void signUserUp() async {
@@ -33,17 +45,36 @@ class _RegisterPageState extends State<RegisterPage> {
           );
         },
       );
+      if (fullNameController.text.isEmpty) {
+        wrongErrorMessage("Full Name cannot be empty");
+      }
       if (passwordController.text == confirmPasswordController.text) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        User user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text,
           password: passwordController.text,
-        );
+        ))
+            .user!;
+        await DatabaseService(uid: user.uid)
+            .updateUserData(fullNameController.text, emailController.text);
+        print('dispose started');
+        fullNameController.dispose();
+        emailController.dispose();
+        passwordController.dispose();
+        confirmPasswordController.dispose();
+        print('dispose ended');
       } else {
         wrongErrorMessage("Passwords do not match");
       }
-      Navigator.pop(context);
+      navigatorKey.currentState!.pop();
+      // navigatorKey.currentState!.push(
+      //   MaterialPageRoute(
+      //     builder: (context) => HomePage(),
+      //   ),
+      // );
+      // Navigator.of(context, rootNavigator: true).pop();
     } on FirebaseAuthException catch (e) {
-      Navigator.pop(context);
+      // Navigator.pop(context);
+      Navigator.of(context, rootNavigator: true).pop();
       wrongErrorMessage(e.message!);
     }
   }
@@ -94,6 +125,15 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
 
                 const SizedBox(height: 20),
+
+                // username textfield
+                MyTextField(
+                  controller: fullNameController,
+                  hintText: 'Full name',
+                  obscureText: false,
+                ),
+
+                const SizedBox(height: 10),
 
                 // username textfield
                 MyTextField(
