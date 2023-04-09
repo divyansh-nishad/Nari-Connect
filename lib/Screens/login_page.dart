@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:nari_connect/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -5,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:nari_connect/components/my_button.dart';
 import 'package:nari_connect/components/my_textfield.dart';
 import 'package:nari_connect/components/square_tile.dart';
+import 'package:nari_connect/services/database_service.dart';
+
+import '../helper/helper_function.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -19,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
+  bool _isLoggingIn = false;
 
   // sign user in method
   void signUserIn() async {
@@ -31,10 +36,22 @@ class _LoginPageState extends State<LoginPage> {
           );
         },
       );
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
-      );
+      )
+          .then((value) async {
+        if (value == true) {
+          QuerySnapshot snapshot =
+              await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
+                  .getUserData(emailController.text);
+          //saving value to shared preference
+          await HelperFunction.saveUserLoggedInStatus(true);
+          await HelperFunction.saveUserEmailSF (emailController.text);
+          await HelperFunction.saveUserNameSF(snapshot.docs[0]['fullName']);
+        }
+      });
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
@@ -99,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // const SizedBox(height: 40),
+                const SizedBox(height: 15),
 
                 // logo
                 // const Icon(
@@ -111,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 200,
                 ),
 
-                const SizedBox(height: 40),
+                const SizedBox(height: 25),
 
                 // welcome back, you've been missed!
                 Text(
@@ -156,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 25),
 
                 // sign in button
                 MyButton(
@@ -164,7 +181,7 @@ class _LoginPageState extends State<LoginPage> {
                   onTap: signUserIn,
                 ),
 
-                const SizedBox(height: 40),
+                const SizedBox(height: 30),
 
                 // or continue with
                 Padding(
@@ -194,15 +211,28 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
 
-                const SizedBox(height: 40),
-
+                const SizedBox(height: 15),
+                Column(
+                  children: [
+                    (_isLoggingIn ? CircularProgressIndicator() : SizedBox())
+                  ],
+                ),
+                const SizedBox(height: 15),
                 // google + apple sign in buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // google button
                     SquareTile(
-                        onTap: () => AuthService().signInWithGoogle(),
+                        onTap: () async {
+                          setState(() {
+                            _isLoggingIn = true;
+                          });
+                          await AuthService().signInWithGoogle();
+                          setState(() {
+                            _isLoggingIn = false;
+                          });
+                        },
                         imagePath: 'assets/images/google.png'),
 
                     SizedBox(width: 25),

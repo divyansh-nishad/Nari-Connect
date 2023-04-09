@@ -9,6 +9,8 @@ import 'package:nari_connect/components/my_textfield.dart';
 import 'package:nari_connect/components/square_tile.dart';
 import 'package:nari_connect/services/database_service.dart';
 
+import '../helper/helper_function.dart';
+
 class RegisterPage extends StatefulWidget {
   final Function()? onTap;
   RegisterPage({super.key, required this.onTap});
@@ -27,11 +29,26 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final confirmPasswordController = TextEditingController();
 
+  bool _isLoggingIn = false;
+  AuthService authService = new AuthService();
+
   @override
   void dispose() {
     // ignore: avoid_print
     print('Dispose used');
     super.dispose();
+  }
+
+  void wrongErrorMessage(String message) {
+    showDialog(
+      context: context,
+      builder: ((context) {
+        return AlertDialog(
+          backgroundColor: Colors.deepPurple,
+          title: Text(message, style: TextStyle(color: Colors.white)),
+        );
+      }),
+    );
   }
 
   // sign user up method
@@ -49,19 +66,33 @@ class _RegisterPageState extends State<RegisterPage> {
         wrongErrorMessage("Full Name cannot be empty");
       }
       if (passwordController.text == confirmPasswordController.text) {
-        User user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text,
-        ))
-            .user!;
-        await DatabaseService(uid: user.uid)
-            .updateUserData(fullNameController.text, emailController.text);
-        print('dispose started');
-        fullNameController.dispose();
-        emailController.dispose();
-        passwordController.dispose();
-        confirmPasswordController.dispose();
-        print('dispose ended');
+        await authService
+            .registerUserWithEmailandPassword(fullNameController.text,
+                emailController.text, passwordController.text)
+            .then((value) async {
+          if (value == true) {
+            // saving the shared preference state
+            await HelperFunction.saveUserLoggedInStatus(true);
+            await HelperFunction.saveUserEmailSF(emailController.text);
+            await HelperFunction.saveUserNameSF(fullNameController.text);
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => HomePage()));
+
+            // User user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            //   email: emailController.text,
+            //   password: passwordController.text,
+            // ))
+            //     .user!;
+            // await DatabaseService(uid: user.uid)
+            //     .savingUserData(fullNameController.text, emailController.text);
+            // print('dispose started');
+            // fullNameController.dispose();
+            // emailController.dispose();
+            // passwordController.dispose();
+            // confirmPasswordController.dispose();
+            // print('dispose ended');
+          }
+        });
       } else {
         wrongErrorMessage("Passwords do not match");
       }
@@ -79,18 +110,6 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  void wrongErrorMessage(String message) {
-    showDialog(
-      context: context,
-      builder: ((context) {
-        return AlertDialog(
-          backgroundColor: Colors.deepPurple,
-          title: Text(message, style: TextStyle(color: Colors.white)),
-        );
-      }),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,7 +120,7 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 40),
+                const SizedBox(height: 10),
 
                 // logo
                 // const Icon(
@@ -110,10 +129,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 // ),
                 Image.asset(
                   'assets/images/signup.png',
-                  height: 200,
+                  height: 180,
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 10),
 
                 // Lets create an account for you!
                 Text(
@@ -175,7 +194,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 //   ),
                 // ),
 
-                const SizedBox(height: 20),
+                const SizedBox(height: 15),
 
                 // sign up button
                 MyButton(
@@ -183,7 +202,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   onTap: signUserUp,
                 ),
 
-                const SizedBox(height: 30),
+                const SizedBox(height: 15),
 
                 // or continue with
                 Padding(
@@ -213,7 +232,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 10),
+                Column(
+                  children: [
+                    (_isLoggingIn ? CircularProgressIndicator() : SizedBox())
+                  ],
+                ),
+                const SizedBox(height: 10),
 
                 // google + apple sign in buttons
                 Row(
