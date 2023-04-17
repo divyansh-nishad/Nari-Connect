@@ -1,15 +1,9 @@
-import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:nari_connect/Screens/auth_page.dart';
 import 'package:nari_connect/Screens/search_page.dart';
-import 'package:nari_connect/main.dart';
-
 import '../helper/helper_function.dart';
 import '../services/auth_service.dart';
-import '../services/database_service.dart';
 import '../widgets/widgets.dart';
 import 'profile_page.dart';
 
@@ -119,7 +113,7 @@ class _HomePageState extends State<HomePage> {
             height: 15,
           ),
           Text(
-            userName,
+            user.displayName!,
             textAlign: TextAlign.center,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
@@ -131,7 +125,7 @@ class _HomePageState extends State<HomePage> {
           ),
           ListTile(
             onTap: () {},
-            selectedColor: Theme.of(context).primaryColor,
+            selectedColor: Colors.pinkAccent,
             selected: true,
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -143,12 +137,12 @@ class _HomePageState extends State<HomePage> {
           ),
           ListTile(
             onTap: () {
-              nextScreen(
+              nextScreenReplace(
                   context,
-                  const ProfilePage(
-                      // userName: userName,
-                      // email: email,
-                      ));
+                  ProfilePage(
+                    userName: userName,
+                    email: email,
+                  ));
             },
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
