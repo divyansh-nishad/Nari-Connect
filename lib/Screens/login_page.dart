@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
         password: passwordController.text,
       )
           .then((value) async {
-        if (value == true) {
+        if (value.user!=null) {
           QuerySnapshot snapshot =
               await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
                   .getUserData(emailController.text);
