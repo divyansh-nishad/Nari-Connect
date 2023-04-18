@@ -12,7 +12,7 @@ import '../helper/helper_function.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
-  LoginPage({super.key, required this.onTap});
+  LoginPage({Key? key, required this.onTap}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -42,57 +42,23 @@ class _LoginPageState extends State<LoginPage> {
         password: passwordController.text,
       )
           .then((value) async {
-        if (value.user!=null) {
+        if (value.user != null) {
+          Navigator.pop(context);
           QuerySnapshot snapshot =
               await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
                   .getUserData(emailController.text);
           //saving value to shared preference
           await HelperFunction.saveUserLoggedInStatus(true);
-          await HelperFunction.saveUserEmailSF (emailController.text);
+          await HelperFunction.saveUserEmailSF(emailController.text);
           await HelperFunction.saveUserNameSF(snapshot.docs[0]['fullName']);
         }
       });
-      Navigator.pop(context);
+      // Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       Navigator.pop(context);
       wrongErrorMessage(e.message!);
-      // if (e.code == 'user-not-found') {
-      //   wrongEmailMessage();
-      // } else if (e.code == 'wrong-password') {
-      //   wrongPasswordMessage();
-      // }
     }
-    // await FirebaseAuth.instance.signInWithEmailAndPassword(
-    //   email: emailController.text,
-    //   password: passwordController.text,
-    // );
   }
-
-  // void wrongEmailMessage() {
-  //   showDialog(
-  //     context: context,
-  //     builder: ((context) {
-  //       return const AlertDialog(
-  //         backgroundColor: Colors.deepPurple,
-  //         title: Text('Email not registered',
-  //             style: TextStyle(color: Colors.white)),
-  //       );
-  //     }),
-  //   );
-  // }
-
-  // void wrongPasswordMessage() {
-  //   showDialog(
-  //     context: context,
-  //     builder: ((context) {
-  //       return const AlertDialog(
-  //         backgroundColor: Colors.deepPurple,
-  //         title:
-  //             Text('Incorrect Password', style: TextStyle(color: Colors.white)),
-  //       );
-  //     }),
-  //   );
-  // }
 
   void wrongErrorMessage(String message) {
     showDialog(
@@ -214,7 +180,9 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 15),
                 Column(
                   children: [
-                    (_isLoggingIn ? CircularProgressIndicator() : SizedBox())
+                    (_isLoggingIn
+                        ? const CircularProgressIndicator()
+                        : const SizedBox())
                   ],
                 ),
                 const SizedBox(height: 15),

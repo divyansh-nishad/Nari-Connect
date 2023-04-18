@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
             height: 15,
           ),
           Text(
-            user.displayName!,
+            userName,
             textAlign: TextAlign.center,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),

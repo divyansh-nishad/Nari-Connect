@@ -66,46 +66,27 @@ class _RegisterPageState extends State<RegisterPage> {
         wrongErrorMessage("Full Name cannot be empty");
       }
       if (passwordController.text == confirmPasswordController.text) {
+        await HelperFunction.saveUserLoggedInStatus(true);
+        await HelperFunction.saveUserEmailSF(emailController.text);
+        await HelperFunction.saveUserNameSF(fullNameController.text);
+        Navigator.pop(context);
         await authService
             .registerUserWithEmailandPassword(fullNameController.text,
                 emailController.text, passwordController.text)
             .then((value) async {
           if (value == true) {
             // saving the shared preference state
-            await HelperFunction.saveUserLoggedInStatus(true);
-            await HelperFunction.saveUserEmailSF(emailController.text);
-            await HelperFunction.saveUserNameSF(fullNameController.text);
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => HomePage()));
 
-            // User user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            //   email: emailController.text,
-            //   password: passwordController.text,
-            // ))
-            //     .user!;
-            // await DatabaseService(uid: user.uid)
-            //     .savingUserData(fullNameController.text, emailController.text);
-            // print('dispose started');
-            // fullNameController.dispose();
-            // emailController.dispose();
-            // passwordController.dispose();
-            // confirmPasswordController.dispose();
-            // print('dispose ended');
+            // Navigator.pop(context);
+            // dispose();
+            // Navigator.pushReplacement(
+            //     context, MaterialPageRoute(builder: (context) => HomePage()));
           }
         });
       } else {
         wrongErrorMessage("Passwords do not match");
       }
-      navigatorKey.currentState!.pop();
-      // navigatorKey.currentState!.push(
-      //   MaterialPageRoute(
-      //     builder: (context) => HomePage(),
-      //   ),
-      // );
-      // Navigator.of(context, rootNavigator: true).pop();
     } on FirebaseAuthException catch (e) {
-      // Navigator.pop(context);
-      Navigator.of(context, rootNavigator: true).pop();
       wrongErrorMessage(e.message!);
     }
   }
