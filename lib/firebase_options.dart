@@ -67,6 +67,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '697089200168',
     projectId: 'nari-connect-918d2',
     storageBucket: 'nari-connect-918d2.appspot.com',
+    androidClientId: '697089200168-glhtltr6n6t1tgtmu1br9e3uotsh0i2b.apps.googleusercontent.com',
     iosClientId: '697089200168-idd34gmc2gnt22b720442ben25k5f6h9.apps.googleusercontent.com',
     iosBundleId: 'com.example.nariConnect',
   );
@@ -77,6 +78,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '697089200168',
     projectId: 'nari-connect-918d2',
     storageBucket: 'nari-connect-918d2.appspot.com',
+    androidClientId: '697089200168-glhtltr6n6t1tgtmu1br9e3uotsh0i2b.apps.googleusercontent.com',
     iosClientId: '697089200168-idd34gmc2gnt22b720442ben25k5f6h9.apps.googleusercontent.com',
     iosBundleId: 'com.example.nariConnect',
   );

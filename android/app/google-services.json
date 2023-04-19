@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "697089200168-9vln4th5i1k6piev5bcsm0dhqt2mt7do.apps.googleusercontent.com",
+          "client_id": "697089200168-glhtltr6n6t1tgtmu1br9e3uotsh0i2b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nari_connect",
+            "certificate_hash": "d8cf8897e7b4770ba8a1e2a7e0298d85375415d6"
+          }
+        },
+        {
+          "client_id": "697089200168-ld2h0h575n9roide9sm26chd8aug6rl2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
