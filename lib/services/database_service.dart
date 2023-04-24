@@ -73,7 +73,7 @@ class DatabaseService {
   }
 
   // search
-  searchByName(String groupName) {
+  Future searchByName(String groupName) {
     return groupCollection.where("groupName", isEqualTo: groupName).get();
   }
 

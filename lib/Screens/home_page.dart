@@ -83,8 +83,10 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SearchPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SearchPage()));
               },
               icon: const Icon(Icons.search)),
           // IconButton(
@@ -297,7 +299,7 @@ class _HomePageState extends State<HomePage> {
       stream: groups,
       builder: (context, AsyncSnapshot snapshot) {
         // make some checks
-        if (snapshot.hasData && snapshot.data.exists) {
+        if (snapshot.hasData) {
           if (snapshot.data['groups'] != null) {
             if (snapshot.data['groups'].length != 0) {
               return ListView.builder(
@@ -317,8 +319,8 @@ class _HomePageState extends State<HomePage> {
             return noGroupWidget();
           }
         } else {
-          return Center(
-            child: CircularProgressIndicator(color: Colors.pink ),
+          return const Center(
+            child: CircularProgressIndicator(color: Colors.pink),
           );
         }
       },
