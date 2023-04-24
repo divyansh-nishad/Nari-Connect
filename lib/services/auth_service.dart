@@ -26,6 +26,8 @@ class AuthService {
         authResult.user?.displayName ?? email?.substring(0, email.indexOf('@'));
 
     if (email != null && username != null) {
+      DatabaseService(uid: authResult.user!.uid)
+          .savingUserData(username, email);
       final prefs = await SharedPreferences.getInstance();
       HelperFunction.saveUserEmailSF(email);
       HelperFunction.saveUserNameSF(username);

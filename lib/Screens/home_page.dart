@@ -243,8 +243,7 @@ class _HomePageState extends State<HomePage> {
                           style: const TextStyle(color: Colors.black),
                           decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Theme.of(context).primaryColor),
+                                  borderSide: BorderSide(color: Colors.pink),
                                   borderRadius: BorderRadius.circular(20)),
                               errorBorder: OutlineInputBorder(
                                   borderSide:
@@ -252,7 +251,8 @@ class _HomePageState extends State<HomePage> {
                                   borderRadius: BorderRadius.circular(20)),
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                      color: Theme.of(context).primaryColor),
+                                    color: Colors.pink,
+                                  ),
                                   borderRadius: BorderRadius.circular(20))),
                         ),
                 ],
@@ -262,8 +262,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
                   child: const Text("CANCEL"),
                 ),
                 ElevatedButton(
@@ -284,8 +283,7 @@ class _HomePageState extends State<HomePage> {
                           context, Colors.green, "Group created successfully.");
                     }
                   },
-                  style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).primaryColor),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.pink),
                   child: const Text("CREATE"),
                 )
               ],

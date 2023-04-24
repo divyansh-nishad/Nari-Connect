@@ -52,7 +52,7 @@ class _GroupInfoState extends State<GroupInfo> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Colors.pink,
         title: const Text("Group Info"),
         actions: [
           IconButton(
@@ -108,13 +108,13 @@ class _GroupInfoState extends State<GroupInfo> {
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
-                  color: Theme.of(context).primaryColor.withOpacity(0.2)),
+                  color: Colors.pink.withOpacity(0.2)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   CircleAvatar(
                     radius: 30,
-                    backgroundColor: Theme.of(context).primaryColor,
+                    backgroundColor: Colors.deepPurple,
                     child: Text(
                       widget.groupName.substring(0, 1).toUpperCase(),
                       style: const TextStyle(
@@ -164,7 +164,7 @@ class _GroupInfoState extends State<GroupInfo> {
                     child: ListTile(
                       leading: CircleAvatar(
                         radius: 30,
-                        backgroundColor: Theme.of(context).primaryColor,
+                        backgroundColor: Colors.deepPurple,
                         child: Text(
                           getName(snapshot.data['members'][index])
                               .substring(0, 1)
@@ -192,9 +192,9 @@ class _GroupInfoState extends State<GroupInfo> {
             );
           }
         } else {
-          return Center(
+          return const Center(
               child: CircularProgressIndicator(
-            color: Theme.of(context).primaryColor,
+            color: Colors.pink,
           ));
         }
       },

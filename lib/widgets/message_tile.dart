@@ -45,13 +45,13 @@ class _MessageTileState extends State<MessageTile> {
                     bottomRight: Radius.circular(20),
                   ),
             color: widget.sentByMe
-                ? Theme.of(context).primaryColor
-                : Colors.grey[700]),
+                ? Colors.deepPurpleAccent[700]
+                : Color.fromARGB(220, 135, 7, 215)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              widget.sender.toUpperCase(),
+              "~ " + widget.sender.toUpperCase(),
               textAlign: TextAlign.start,
               style: const TextStyle(
                   fontSize: 13,
