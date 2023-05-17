@@ -74,7 +74,10 @@ class DatabaseService {
 
   // search
   Future searchByName(String groupName) {
-    return groupCollection.where("groupName", isEqualTo: groupName).get();
+    return groupCollection
+        .where("groupName", isGreaterThanOrEqualTo: groupName)
+        .where("groupName", isLessThan: '${groupName}z')
+        .get();
   }
 
   // function -> bool
