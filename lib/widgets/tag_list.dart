@@ -26,16 +26,17 @@ class _TagsListState extends State<TagsList> {
                   });
                 },
                 child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   decoration: BoxDecoration(
                     color: selectedList == index
-                        ? Theme.of(context).primaryColor.withOpacity(0.2)
-                        : Colors.white,
+                        ? Colors.pink.withOpacity(0.4)
+                        : Colors.pink.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
                       color: selectedList == index
-                          ? Theme.of(context).primaryColor
-                          : Theme.of(context).primaryColor.withOpacity(0.2),
+                          ? Colors.pink
+                          : Colors.pink.withOpacity(0.2),
                     ),
                   ),
                   child: Text(

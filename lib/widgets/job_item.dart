@@ -18,9 +18,9 @@ class _JobItemState extends State<JobItem> {
   Widget build(BuildContext context) {
     return Container(
       width: 270,
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.pink.withOpacity(0.2),
         borderRadius: BorderRadius.circular(30),
       ),
       child: Column(
@@ -34,21 +34,21 @@ class _JobItemState extends State<JobItem> {
                   Container(
                     width: 40,
                     height: 40,
-                    padding: EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.grey.withOpacity(0.1),
+                      color: Colors.white,
                     ),
                     child: Image.asset(widget.job.logoUrl),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Text(
                     widget.job.company,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 16,
-                        color: Colors.grey,
+                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         overflow: TextOverflow.ellipsis),
                   ),
@@ -68,20 +68,20 @@ class _JobItemState extends State<JobItem> {
                           ? Icons.bookmark_outline_sharp
                           : Icons.bookmark,
                       color: widget.job.isMark == false
-                          ? Colors.grey
-                          : Theme.of(context).primaryColor),
+                          ? Colors.black
+                          : Colors.pink),
                 ),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Text(
             widget.job.title,
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

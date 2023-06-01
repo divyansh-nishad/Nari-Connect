@@ -35,6 +35,10 @@ class AuthService {
       // prefs.setString('username', username);
     }
   }
+
+  void signUserOut() {
+    FirebaseAuth.instance.signOut();
+  }
   // signInWithGoogle() async {
   //   final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
 

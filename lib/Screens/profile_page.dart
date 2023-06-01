@@ -5,6 +5,7 @@ import 'package:nari_connect/Screens/home_page.dart';
 import '../services/auth_service.dart';
 import '../widgets/widgets.dart';
 import 'auth_page.dart';
+import 'job_opp.dart';
 
 class ProfilePage extends StatefulWidget {
   String userName;
@@ -94,6 +95,18 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           ListTile(
+            onTap: () {
+              nextScreenReplace(context, JobOpportunitiesScreen());
+            },
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            leading: const Icon(Icons.group),
+            title: const Text(
+              "Jobs",
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+          ListTile(
             onTap: () async {
               showDialog(
                   barrierDismissible: false,
@@ -144,11 +157,18 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Icon(
-              Icons.account_circle,
-              size: 200,
-              color: Colors.grey[700],
-            ),
+            if (user.photoURL != null)
+              CircleAvatar(
+                radius: 80,
+                backgroundImage: NetworkImage(user.photoURL!),
+              ),
+            // if (user.photoURL == null) GestureDetector(),
+            if (user.photoURL == null)
+              Icon(
+                Icons.account_circle,
+                size: 200,
+                color: Colors.grey[700],
+              ),
             const SizedBox(
               height: 15,
             ),

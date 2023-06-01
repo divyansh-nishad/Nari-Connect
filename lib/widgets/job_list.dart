@@ -25,7 +25,7 @@ class JobList extends StatelessWidget {
                       showModalBottomSheet(
                         isScrollControlled: true,
                         context: context,
-                        backgroundColor: Colors.transparent,
+                        backgroundColor: Colors.pink.withOpacity(0.4),
                         builder: (context) => BackdropFilter(
                           filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                           child: JobDetail(

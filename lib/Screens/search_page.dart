@@ -98,7 +98,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
           ),
           isLoading
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(color: Colors.pink),
                 )
               : groupList(),

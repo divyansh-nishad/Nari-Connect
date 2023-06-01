@@ -161,7 +161,7 @@ class _HomePageState extends State<HomePage> {
           ),
           ListTile(
             onTap: () {
-              nextScreenReplace(context, const JobOpportunitiesScreen());
+              nextScreenReplace(context, JobOpportunitiesScreen());
             },
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 20, vertical: 5),

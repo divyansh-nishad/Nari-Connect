@@ -16,9 +16,9 @@ class _JobDetailState extends State<JobDetail> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(25),
+      padding: const EdgeInsets.all(25),
       height: 550,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
           topRight: Radius.circular(30),
@@ -36,7 +36,7 @@ class _JobDetailState extends State<JobDetail> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Row(
@@ -47,19 +47,19 @@ class _JobDetailState extends State<JobDetail> {
                         Container(
                           height: 40,
                           width: 40,
-                          padding: EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.grey.withOpacity(0.1),
                           ),
                           child: Image.asset(widget.job.logoUrl),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Text(
                           widget.job.company,
-                          style: TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 16),
                         ),
                       ],
                     ),
@@ -83,19 +83,19 @@ class _JobDetailState extends State<JobDetail> {
                                     : Theme.of(context).primaryColor),
                           ),
                         ),
-                        Icon(Icons.more_horiz_outlined),
+                        const Icon(Icons.more_horiz_outlined),
                       ],
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Text(
                   widget.job.title,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Row(
@@ -109,40 +109,40 @@ class _JobDetailState extends State<JobDetail> {
                         text: widget.job.time),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                Text(
+                const Text(
                   'Requirements',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.start,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 ...widget.job.req
                     .map(
                       (e) => Container(
-                        margin: EdgeInsets.symmetric(vertical: 5),
+                        margin: const EdgeInsets.symmetric(vertical: 5),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
+                              margin: const EdgeInsets.fromLTRB(0, 10, 10, 0),
                               width: 5,
                               height: 5,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   shape: BoxShape.circle, color: Colors.black),
                             ),
                             ConstrainedBox(
-                              constraints: BoxConstraints(maxWidth: 400),
+                              constraints: const BoxConstraints(maxWidth: 400),
                             ),
                             Flexible(
                               child: Text(
                                 e,
-                                style: TextStyle(wordSpacing: 2.5, height: 1.5),
+                                style: const TextStyle(wordSpacing: 2.5, height: 1.5),
                                 overflow: TextOverflow.visible,
                               ),
                             ),
@@ -152,7 +152,7 @@ class _JobDetailState extends State<JobDetail> {
                     )
                     .toList(),
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 25),
+                  margin: const EdgeInsets.symmetric(vertical: 25),
                   height: 45,
                   width: double.maxFinite,
                   child: ElevatedButton(
@@ -164,7 +164,7 @@ class _JobDetailState extends State<JobDetail> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Text('Apply Now'),
+                    child: const Text('Apply Now'),
                   ),
                 )
               ],
