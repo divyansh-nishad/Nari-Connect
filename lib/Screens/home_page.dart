@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nari_connect/Screens/auth_page.dart';
+import 'package:nari_connect/Screens/books_page.dart';
 import 'package:nari_connect/Screens/job_opp.dart';
 import 'package:nari_connect/Screens/search_page.dart';
 import '../helper/helper_function.dart';
@@ -168,6 +169,18 @@ class _HomePageState extends State<HomePage> {
             leading: const Icon(Icons.group),
             title: const Text(
               "Jobs",
+              style: TextStyle(color: Colors.black),
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              nextScreenReplace(context, BooksPage());
+            },
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            leading: const Icon(Icons.group),
+            title: const Text(
+              "Resources",
               style: TextStyle(color: Colors.black),
             ),
           ),
