@@ -75,13 +75,13 @@ class _JobItemState extends State<JobItem> {
             ],
           ),
           const SizedBox(
-            height: 15,
+            height: 10,
           ),
           Text(
             widget.job.title,
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

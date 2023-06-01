@@ -4,6 +4,7 @@ import 'package:nari_connect/Screens/auth_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'package:nari_connect/Screens/onBoarding.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
@@ -24,6 +25,8 @@ class MyApp extends StatelessWidget {
       title: 'Nari Connect',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        textTheme: GoogleFonts.poppinsTextTheme(),
+        // fontFamily: GoogleFonts.poppins().fontFamily,
       ),
       home: isFirstTime ? HomeScreen() : const AuthPage(),
       navigatorKey: navigatorKey,
