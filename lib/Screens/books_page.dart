@@ -2,15 +2,42 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:nari_connect/Screens/profile_page.dart';
 
+import '../components/book_info.dart';
 import '../widgets/widgets.dart';
 import 'auth_page.dart';
 import 'home_page.dart';
 import 'job_opp.dart';
-// import 'package:books_finder/books_finder.dart';
+import 'package:books_finder/books_finder.dart';
 
-class BooksPage extends StatelessWidget {
+class BooksPage extends StatefulWidget {
   BooksPage({super.key});
+
+  @override
+  State<BooksPage> createState() => _BooksPageState();
+}
+
+class _BooksPageState extends State<BooksPage> {
   final user = FirebaseAuth.instance.currentUser!;
+  List<BookInfo> books = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchBooks();
+  }
+
+  Future<void> fetchBooks() async {
+    final fetchedBooks = await queryBooks(
+      'women',
+      maxResults: 3,
+      printType: PrintType.books,
+      orderBy: OrderBy.relevance,
+      reschemeImageLinks: true,
+    );
+    setState(() {
+      books = fetchedBooks.map((book) => book.info).toList();
+    });
+  }
 
   void signUserOut() {
     FirebaseAuth.instance.signOut();
@@ -148,8 +175,35 @@ class BooksPage extends StatelessWidget {
           ],
         ),
       ),
-      body: const Center(
-        child: Text("Check out our resources!"),
+      body: Container(
+        decoration: BoxDecoration(
+          color: Colors.pink.withOpacity(0.2),
+        ),
+        padding: const EdgeInsets.all(8.0),
+        child: ListView.builder(
+          itemCount: books.length,
+          itemBuilder: (context, index) {
+            final book = books[index];
+            return ListTile(
+              contentPadding: EdgeInsets.all(8),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              leading:
+                  Image.network(book.imageLinks['smallThumbnail'].toString()),
+              title: Text(book.title ?? ''),
+              subtitle: Text(book.authors?.join(', ') ?? ''),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BookInfoScreen(bookInfo: book),
+                  ),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
