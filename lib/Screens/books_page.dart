@@ -179,28 +179,44 @@ class _BooksPageState extends State<BooksPage> {
         decoration: BoxDecoration(
           color: Colors.pink.withOpacity(0.2),
         ),
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: ListView.builder(
           itemCount: books.length,
           itemBuilder: (context, index) {
             final book = books[index];
-            return ListTile(
-              contentPadding: EdgeInsets.all(8),
-              shape: RoundedRectangleBorder(
+            return Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
-              ),
-              leading:
-                  Image.network(book.imageLinks['smallThumbnail'].toString()),
-              title: Text(book.title ?? ''),
-              subtitle: Text(book.authors?.join(', ') ?? ''),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BookInfoScreen(bookInfo: book),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    offset: Offset(0, 2),
+                    blurRadius: 6,
                   ),
-                );
-              },
+                ],
+              ),
+              height: MediaQuery.of(context).size.height * 0.12,
+              margin: EdgeInsets.all(8),
+              child: ListTile(
+                contentPadding: EdgeInsets.all(8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                leading: Image.network(
+                  book.imageLinks['smallThumbnail'].toString(),
+                ),
+                title: Text(book.title ?? ''),
+                subtitle: Text(book.authors?.join(', ') ?? ''),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BookInfoScreen(bookInfo: book),
+                    ),
+                  );
+                },
+              ),
             );
           },
         ),
