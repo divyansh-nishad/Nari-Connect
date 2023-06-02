@@ -206,8 +206,8 @@ class _BooksPageState extends State<BooksPage> {
                 leading: Image.network(
                   book.imageLinks['smallThumbnail'].toString(),
                 ),
-                title: Text(book.title ?? ''),
-                subtitle: Text(book.authors?.join(', ') ?? ''),
+                title: Text(book.title),
+                subtitle: Text(book.authors.join(', ')),
                 onTap: () {
                   Navigator.push(
                     context,
