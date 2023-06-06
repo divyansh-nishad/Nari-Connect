@@ -57,11 +57,23 @@ class _DrawerWidgetState extends State<DrawerWidget> {
       child: ListView(
         padding: const EdgeInsets.symmetric(vertical: 50),
         children: <Widget>[
-          Icon(
-            Icons.account_circle,
-            size: 150,
-            color: Colors.grey[700],
-          ),
+          if (widget.user.photoURL != null)
+            CircleAvatar(
+              radius: 90,
+              backgroundImage: NetworkImage(widget.user.photoURL!),
+            ),
+          // if (user.photoURL == null) GestureDetector(),
+          if (widget.user.photoURL == null)
+            Icon(
+              Icons.account_circle,
+              size: 200,
+              color: Colors.grey[700],
+            ),
+          // Icon(
+          //   Icons.account_circle,
+          //   size: 150,
+          //   color: Colors.grey[700],
+          // ),
           const SizedBox(
             height: 15,
           ),
