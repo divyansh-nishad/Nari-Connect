@@ -10,7 +10,7 @@ import 'job_opp.dart';
 import 'package:books_finder/books_finder.dart';
 
 class BooksPage extends StatefulWidget {
-  BooksPage({super.key});
+  const BooksPage({super.key});
 
   @override
   State<BooksPage> createState() => _BooksPageState();
@@ -19,17 +19,18 @@ class BooksPage extends StatefulWidget {
 class _BooksPageState extends State<BooksPage> {
   final user = FirebaseAuth.instance.currentUser!;
   List<BookInfo> books = [];
+  TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    fetchBooks();
+    fetchBooks('women');
   }
 
-  Future<void> fetchBooks() async {
+  Future<void> fetchBooks(String query) async {
     final fetchedBooks = await queryBooks(
-      'women',
-      maxResults: 3,
+      query,
+      maxResults: 5,
       printType: PrintType.books,
       orderBy: OrderBy.relevance,
       reschemeImageLinks: true,
@@ -175,50 +176,89 @@ class _BooksPageState extends State<BooksPage> {
           ],
         ),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          color: Colors.pink.withOpacity(0.2),
-        ),
-        padding: const EdgeInsets.all(16.0),
-        child: ListView.builder(
-          itemCount: books.length,
-          itemBuilder: (context, index) {
-            final book = books[index];
-            return Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black12,
-                    offset: Offset(0, 2),
-                    blurRadius: 6,
+      backgroundColor: Colors.pink[100],
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      cursorColor: Colors.pink,
+                      controller: searchController,
+                      decoration: const InputDecoration(
+                        icon: Icon(Icons.search, color: Colors.pink),
+                        hintText: 'Enter search query',
+                        focusColor: Colors.pink,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16.0),
+                  ElevatedButton(
+                    onPressed: () {
+                      String query = searchController.text;
+                      fetchBooks(query);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.pink,
+                      disabledForegroundColor: Colors.grey.withOpacity(0.38),
+                      disabledBackgroundColor: Colors.grey.withOpacity(0.12),
+                    ),
+                    child: const Text('Search'),
                   ),
                 ],
               ),
-              height: MediaQuery.of(context).size.height * 0.12,
-              margin: EdgeInsets.all(8),
-              child: ListTile(
-                contentPadding: EdgeInsets.all(8),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                leading: Image.network(
-                  book.imageLinks['smallThumbnail'].toString(),
-                ),
-                title: Text(book.title),
-                subtitle: Text(book.authors.join(', ')),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BookInfoScreen(bookInfo: book),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: books.length,
+                itemBuilder: (context, index) {
+                  final book = books[index];
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(0, 2),
+                          blurRadius: 6,
+                        ),
+                      ],
+                    ),
+                    height: MediaQuery.of(context).size.height * 0.12,
+                    margin: const EdgeInsets.all(8),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.all(10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      leading: Image.network(
+                          book.imageLinks['smallThumbnail'].toString()),
+                      title: Text(book.title),
+                      subtitle: Text(
+                        book.authors.join(', '),
+                        maxLines: 1,
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                BookInfoScreen(bookInfo: book),
+                          ),
+                        );
+                      },
                     ),
                   );
                 },
               ),
-            );
-          },
+            ),
+          ],
         ),
       ),
     );
