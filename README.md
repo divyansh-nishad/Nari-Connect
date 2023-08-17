@@ -17,5 +17,5 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Screenshots
 ![Onboarding](https://i.ibb.co/k62yQdt/1.png)
-![Chat](assets/images/2.png)
-![Library](assets/images/3.png)
+![Chat](https://i.ibb.co/4Nkh5CC/2.png)
+![Library](https://i.ibb.co/g904pj9/3.png)
