@@ -16,6 +16,6 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 ## Screenshots
-![Onboarding](./assets/images/1.png?raw=true "Onboarding")
-![Chat](./assets/images/2.png?raw=true "Chat")
-![Library](./assets/images/3.png?raw=true "Library")
+![Onboarding](./assets/images/1.png)
+![Chat](./assets/images/2.png)
+![Library](./assets/images/3.png)
