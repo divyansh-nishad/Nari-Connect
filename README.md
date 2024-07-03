@@ -14,11 +14,19 @@ Welcome to Nari Connect, a women empowerment app designed to provide a supportiv
 - **Resource Library:** Access  resources to gain knowledge and experience.
 
 ## Screenshots
+
 ![First](https://i.ibb.co/Mn5ZxB3/4.png)
 ![Onboarding](https://i.ibb.co/k62yQdt/1.png)
 ![Chat](https://i.ibb.co/4Nkh5CC/2.png)
 ![Library](https://i.ibb.co/g904pj9/3.png)
 ![Library](https://i.ibb.co/PN0Pn5H/5.png)
+
+![First](/assets/images/4.png)
+![Onboarding](/assets/images/1.png)
+![Chat](/assets/images/2.png)
+![Library](/assets/images/3.png)
+![Library](/assets/images/5.png)
+
 
 ## Getting Started
 
